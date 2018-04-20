@@ -4,7 +4,7 @@ from flask_bcrypt import generate_password_hash
 from flask_login import UserMixin
 from peewee import *
 
-DATABASE = MySQLDatabase('social', user='root', passwd='pass12345')
+DATABASE = MySQLDatabase('heroku_22e25ab6c4a6f72', user='b4f26da204fca7', passwd='7077c765', host='eu-cdbr-west-02.cleardb.net')
 
 
 class User(UserMixin, Model):

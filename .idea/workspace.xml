@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="471c8509-3a70-4585-8f14-b431a55f3d92" name="Default" comment="" />
+    <list default="true" id="471c8509-3a70-4585-8f14-b431a55f3d92" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/models.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -40,8 +42,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" selection-start-line="15" selection-end-line="15" />
+            <state relative-caret-position="90">
+              <caret line="6" column="74" selection-start-line="6" selection-start-column="74" selection-end-line="6" selection-end-column="74" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -104,9 +106,9 @@
         <option value="$PROJECT_DIR$/templates/user_stream.html" />
         <option value="$PROJECT_DIR$/templates/stream.html" />
         <option value="$PROJECT_DIR$/t1.py" />
-        <option value="$PROJECT_DIR$/models.py" />
         <option value="$PROJECT_DIR$/app.py" />
         <option value="$PROJECT_DIR$/templates/404.html" />
+        <option value="$PROJECT_DIR$/models.py" />
       </list>
     </option>
   </component>
@@ -642,8 +644,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
+        <state relative-caret-position="90">
+          <caret line="6" column="74" selection-start-line="6" selection-start-column="74" selection-end-line="6" selection-end-column="74" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
