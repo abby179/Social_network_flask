@@ -1,4 +1,4 @@
-from flask import Flask, g, render_template, url_for, redirect, flash
+from flask import Flask, g, render_template, url_for, redirect, flash, abort
 from flask_bcrypt import check_password_hash
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 
@@ -99,8 +99,12 @@ def index():
 def stream(username=None):
     template = 'stream.html'
     if username and username != current_user.username:
-        user = models.User.select().where(models.User.username**username).get()
-        stream = user.posts.limit(100)
+        try:
+            user = models.User.select().where(models.User.username ** username).get()
+        except models.DoesNotExist:
+            abort(404)
+        else:
+            stream = user.posts.limit(100)
     else:
         user = current_user
         stream = current_user.get_stream().limit(100)
@@ -109,10 +113,64 @@ def stream(username=None):
     return render_template(template, stream=stream, user=user)
 
 
+@app.route('/post/<int:post_id>')
+def view_post(post_id):
+    posts = models.Post.select().where(models.Post.id == post_id)
+    if posts.count() == 0:
+        abort(404)
+    return render_template('stream.html', stream=posts)
+
+
+@app.route('/follow/<username>')
+@login_required
+def follow(username):
+    try:
+        to_user = models.User.get(models.User.username ** username)
+    except models.DoesNotExist:
+        abort(404)
+    else:
+        try:
+            models.Relationship.create(
+                from_user=g.user._get_current_object(),
+                to_user=to_user
+            )
+        except models.IntegrityError:
+            pass
+        else:
+            flash("You are now following {}!".format(to_user.username), "success")
+    return redirect(url_for('stream', username=to_user.username))
+
+
+@app.route('/unfollow/<username>')
+@login_required
+def unfollow(username):
+    try:
+        to_user = models.User.get(models.User.username ** username)
+    except models.DoesNotExist:
+        abort(404)
+    else:
+        try:
+            models.Relationship.get(
+                from_user=g.user._get_current_object(),
+                to_user=to_user
+            ).delete_instance()
+        except models.IntegrityError:
+            pass
+        else:
+            flash("You've unfollowed {}!".format(to_user.username), "success")
+    return redirect(url_for('stream', username=to_user.username))
+
+
+@app.errorhandler(404)
+def not_found(error):
+    return render_template('404.html'), 404
+
+
 if __name__ == '__main__':
     models.initialize()
     try:
-        models.User.create_user(username='yaxizhang', email='abbyzhang2015@hotmail.com', password='password', admin=True)
+        models.User.create_user(username='yaxizhang', email='abbyzhang2015@hotmail.com', password='password',
+                                admin=True)
     except ValueError:
         pass
     app.run(debug=True)
